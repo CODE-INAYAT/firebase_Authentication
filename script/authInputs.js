@@ -10,7 +10,7 @@ const submitButton = accessForm.querySelector('#submitButton');
 const buttonText = submitButton.querySelector('#buttonText');
 const buttonArrow = submitButton.querySelector('#buttonArrow');
 
-//Function to show infoModal
+//Function to show infoModal 
 let infoModalShown = false; // Flag to track if the modal was shown
 
 // Function to show the info modal when the email input is clicked
