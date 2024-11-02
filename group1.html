@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GROUP 1</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon" />
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <link rel="stylesheet" href="style\group1.css">
+    <script src="script/group.js"></script>
+</head>
+
+<body class="">
+    <div class="container mx-auto px-4 py-8">
+        <button id="theme-toggle" type="button"
+            class="text-gray-500 hidden dark:text-gray-400 bg-gray-100 dark:bg-gray-700 dark:hover:focus:ring-blue-800 hover:focus:ring-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-800 dark:focus:ring-blue-800 rounded-lg text-sm p-2.5"
+            style="position: absolute; left: 20px; top: 28px;">
+            <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                    fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+        <h1 class="text-3xl mb-4" style="color: white;">GROUP 1 PYQ'S</h1>
+
+        <!--------------------ACCORDION STARTS-------------------------------->
+        <div id="card" class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800">
+            <div id="accordion-color" data-accordion="collapse"
+                data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white">
+
+                <!------------------YEAR 2023-24---------------------->
+                <h2 id="accordion-color-heading-1">
+                    <button type="button"
+                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 dark:border-gray-700 hover:bg-blue-100 dark:hover:bg-blue-800 gap-3"
+                        data-accordion-target="#accordion-color-body-1" aria-expanded="true"
+                        aria-controls="accordion-color-body-1">
+                        <span class="dark:text-white">YEAR 2023-24</span>
+                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-color-body-1" class="hidden" aria-labelledby="accordion-color-heading-1">
+                    <div
+                        class="p-4 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900 overflow-y-auto">
+                        <ol class="relative border-s border-gray-300 dark:border-blue-800">
+
+                            <!---------------ESE PAPERS STARTS-------------------->
+                            <li class="mb-10 ms-6">
+                                <span
+                                    class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                                    <svg class="w-5 h-5 text-blue-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z" />
+                                    </svg>
+                                </span>
+                                <h3 class="flex items-center mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                                    ESE <span
+                                        class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-gray-200 ms-3">Recent</span>
+                                </h3>
+                                <time
+                                    class="block mb-3 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Held
+                                    Between 11/12/2023 - 21/11/2023</time>
+                                <a href="https://drive.usercontent.google.com/download?id=1lCPTe98iUCDNsX-E7MRVT6cQTR_-Qqf6&export=download"
+                                    class="inline-flex mb-3 items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-800 focus:text-blue-700"><svg
+                                        class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
+                                        <path
+                                            d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                                    </svg>ESE ODD SEM</a>
+
+                                <time
+                                    class="block mb-3 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Held
+                                    Between 13/05/2024 - 24/05/2024</time>
+                                <a href="https://drive.usercontent.google.com/download?id=1-Y2CPYjDZYSrQM7BCZ9dB8PFrdDkOMxL&export=download"
+                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-800 focus:text-blue-700"><svg
+                                        class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
+                                        <path
+                                            d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                                    </svg>ESE EVEN SEM</a>
+                            </li>
+
+                            <!---------------------------ISE 1 PAPERS---------------------------->
+                            <li class="mb-10 ms-6">
+                                <span
+                                    class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                                    <svg class="w-5 h-5 text-blue-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z" />
+                                    </svg>
+                                </span>
+                                <h3 class="flex items-center mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                                    ISE I</h3>
+                                <time
+                                    class="block mb-3 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Held
+                                    Between 09/10/2023 - 11/10/2023</time>
+                                <a href="https://drive.usercontent.google.com/download?id=1jK2di98sVy6iXmR5ohjwHxPm1oTKAnE8&export=download"
+                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-800 focus:text-blue-700"><svg
+                                        class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
+                                        <path
+                                            d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                                    </svg>ISE I ODD SEM</a>
+                            </li>
+
+                            <!------------------------ISE 2 PAPERS----------------------------------->
+                            <li class="mb-3 ms-6">
+                                <span
+                                    class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                                    <svg class="w-5 h-5 text-blue-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 25 25">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M5 17v-5h1.5a1.5 1.5 0 1 1 0 3H5m12 2v-5h2m-2 3h2M5 10V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1v6M5 19v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1M10 3v4a1 1 0 0 1-1 1H5m6 4v5h1.375A1.627 1.627 0 0 0 14 15.375v-1.75A1.627 1.627 0 0 0 12.375 12H11Z" />
+                                    </svg>
+                                </span>
+                                <h3 class="flex items-center mb-4 text-lg font-semibold text-gray-900 dark:text-white">
+                                    ISE II</h3>
+                                <time
+                                    class="block mb-3 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Held
+                                    Between 20/11/2023 - 22/11/2023</time>
+                                <a href="https://drive.usercontent.google.com/download?id=1jKPMrcwb7mWlhKzOEc1qnzExvyH2ahJ-&export=download"
+                                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-800 focus:text-blue-700"><svg
+                                        class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
+                                        <path
+                                            d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                                    </svg>ISE II ODD SEM</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- ----------------------YEAR 2022-23------------------------- -->
+                <h2 id="accordion-color-heading-2">
+                    <button type="button"
+                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 hover:bg-blue-100 dark:hover:bg-blue-800 gap-3"
+                        data-accordion-target="#accordion-color-body-2" aria-expanded="false"
+                        aria-controls="accordion-color-body-2">
+                        <span class="dark:text-white">YEAR 2022-23</span>
+                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-color-body-2" class="hidden" aria-labelledby="accordion-color-heading-2">
+                    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+                        <time class="block mb-3 text-sm font-normal leading-none"><span
+                                class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-1 py-0.5 rounded dark:bg-blue-900 dark:text-gray-200">The
+                                start of the
+                                downloading will take some time due to the large file size.</span></time>
+                        <a href="https://drive.usercontent.google.com/download?id=1lZf4tCrtKRmdhiTtvhsB__-ufd_fu8Dl&export=download"
+                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-blue-800 focus:text-blue-700"><svg
+                                class="w-3.5 h-3.5 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
+                                <path
+                                    d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                            </svg>2022-23 PYQ's</a>
+                    </div>
+                </div>
+                <!---------------------YEAR 2021-22 ------------------------------ -->
+                <h2 id="accordion-color-heading-3">
+                    <button type="button"
+                        class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 hover:bg-blue-100 dark:hover:bg-blue-800 gap-3"
+                        data-accordion-target="#accordion-color-body-3" aria-expanded="false"
+                        aria-controls="accordion-color-body-3">
+                        <span class="dark:text-white">YEAR 2021-22</span>
+                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5 5 1 1 5" />
+                        </svg>
+                    </button>
+                </h2>
+                <div id="accordion-color-body-3" class="hidden" aria-labelledby="accordion-color-heading-3">
+                    <div class="p-5 border border-t-0 border-gray-200 dark:border-gray-700">
+                        <p class="text-blue-600 dark:text-blue-500 hover:underline">NO DATA AVAILABLE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------ Loading overlay ------------------------------>
+    <div id="loading" class="overlay dark:bg-gray-800" style="display: none;">
+        <div class="overlay-content">
+            <div class="relative" style="border-radius: 30px;">
+                <div class="p-4 md:p-5 text-center">
+                    <div class="loading-center">
+                        <div role="status">
+                            <dotlottie-player
+                                src="https://lottie.host/edcec27d-e597-4acc-863d-6708501a06a1/TmP7qaTq1Z.json"
+                                background="transparent" speed="1" style="width: 150px; height: 150px" loop
+                                autoplay></dotlottie-player>
+                            <h4 class="dark:text-white" style="margin-top: 15px;">Getting File Ready...</h4>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-------------------- Success overlay ------------------------------->
+    <div id="success" style="font-family: 'Plus Jakarta Sans', sans-serif;"
+        class="fixed z-10 inset-0 overflow-y-auto hidden flex items-center justify-center p-4"
+        aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="w-full max-w-sm sm:max-w-md mx-2 sm:mx-0">
+            <div style="background: rgba(0, 0, 0, 0.441); backdrop-filter: blur(9px);
+-webkit-backdrop-filter: blur(15.9px);" class="fixed inset-0 transition-opacity" aria-hidden="true"></div>
+            <div style="border-radius: 50px;"
+                class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-xl transform transition-all w-full">
+                <!-- Modal header with close button -->
+                <div class="flex items-center justify-between p-1 md:p-5 border-b rounded-t">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white w-full text-center">
+                        <div class="dotlottie-container">
+                            <dotlottie-player
+                                src="https://lottie.host/b262bbf7-05a6-4a30-b6e3-648b52389ffe/o5joDCtkZz.json"
+                                background="transparent" speed="1" style="width: 80px; height: 80px;" loop
+                                autoplay></dotlottie-player>
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </div>Connected To Server!
+                    </h3>
+                </div>
+                <!-- Modal body -->
+                <div class="p-3 md:p-5 space-y-4 text-center">
+                    <p class="text-base leading-relaxed text-gray-700 dark:text-white">
+                        Downloading Has Been Started.<br><span
+                            class="text-blue-600 dark:text-blue-300 font-medium me-2 px-1.5 py-0.5 rounded">You
+                            Can Check The Status From Downloads Of Browser.</span>
+                    </p>
+                    <div
+                        class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                        <button data-modal-hide="popup-modal" type="button" id="okButton"
+                            style="border-radius: 20px; font-size: 18px;"
+                            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium text-sm px-5 py-2.5 text-center mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-flex items-center">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="initialLoading" class="initial-overlay" style="display: flex;">
+        <div class="overlay-content">
+            <div class="relative bg-white rounded-lg shadow" style="border-radius: 30px;">
+                <div class="p-4 md:p-5 text-center">
+                    <div class="loading-center">
+                        <div role="status">
+                            <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin fill-blue-600"
+                                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                    fill="currentColor" />
+                                <path
+                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                    fill="currentFill" />
+                            </svg>
+                            <h4 class="text-gray-600" style="margin-top: 15px;">Please Wait...</h4>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+        var themeToggleBtn = document.getElementById('theme-toggle');
+
+        function setThemeBasedOnTime() {
+            const currentTime = new Date().getHours();
+            const isDaytime = currentTime >= 8 && currentTime < 18;
+            if (!isDaytime) {
+                document.documentElement.classList.add('dark');
+                themeToggleDarkIcon.classList.add('hidden');
+                themeToggleLightIcon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeToggleDarkIcon.classList.remove('hidden');
+                themeToggleLightIcon.classList.add('hidden');
+            }
+        }
+
+        // set the theme based on time
+        setThemeBasedOnTime();
+
+        themeToggleBtn.addEventListener('click', function () {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+    </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCis188btD42eOizSVu2DLanPlWMgOkTVw",
+            authDomain: "accesstopyqs-a3387.firebaseapp.com",
+            databaseURL: "https://accesstopyqs-a3387-default-rtdb.firebaseio.com",
+            projectId: "accesstopyqs-a3387",
+            storageBucket: "accesstopyqs-a3387.appspot.com",
+            messagingSenderId: "256467888726",
+            appId: "1:256467888726:web:1c24cc1bedcffad9b3a9f7"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        (async function () {
+            // Function to check registration status in Firebase Realtime Database (accessKeys node)
+            async function checkRegistration(accessKey) {
+                console.log("Checking registration status in Firebase...");
+                try {
+                    const dbRef = ref(db, `accessKeys/${accessKey}`);
+                    const snapshot = await get(dbRef);
+
+                    if (snapshot.exists()) {
+                        console.log(`Access key verified for user: ${snapshot.val()}`);
+                        return true; // Access key found
+                    } else {
+                        console.log('Access key not found in Firebase.');
+                        return false; // Access key not found
+                    }
+                } catch (error) {
+                    console.error('Error checking registration in Firebase:', error);
+                    return false;
+                }
+            }
+
+            // Get the current time
+            const currentTime = new Date().getTime();
+            console.log("Current time:", currentTime);
+
+            // Check if accessKey and lastCheckTime exist in localStorage
+            const accessKey = localStorage.getItem('accessKey');
+            const lastCheckTime = localStorage.getItem('lastCheckTime');
+            console.log("Access Key:", accessKey);
+            console.log("Last Check Time:", lastCheckTime);
+
+            if (accessKey) {
+                console.log("Access Key found in local storage.");
+
+                const checkInterval = 60000; // 1min in milliseconds
+
+                // If it's the first access (no lastCheckTime) or within 24 hours, skip the external check
+                if (!lastCheckTime || (currentTime - lastCheckTime < checkInterval)) {
+                    console.log("First access or check interval not reached; showing content.");
+
+                    // Set lastCheckTime if it's the first access
+                    if (!lastCheckTime) {
+                        console.log("First access detected. Setting lastCheckTime.");
+                        localStorage.setItem('lastCheckTime', currentTime);
+                    }
+
+                    // Show the content immediately
+                    document.getElementById('initialLoading').style.display = 'none';
+                    // document.getElementById('content').style.display = 'block';
+                } else {
+                    // If the interval has passed, perform the Firebase accessKeys check
+                    console.log("Interval reached; verifying with Firebase.");
+                    const isRegistered = await checkRegistration(accessKey);
+                    if (isRegistered) {
+                        console.log("User is registered, showing content and updating lastCheckTime.");
+                        document.getElementById('initialLoading').style.display = 'none';
+
+                        // Update the last check time after successful check
+                        localStorage.setItem('lastCheckTime', currentTime);
+                    } else {
+                        console.log("User not registered, redirecting to Authentication.html.");
+                        window.location.href = 'Authentication.html';
+                    }
+                }
+            } else {
+                console.log("No access key found in local storage, redirecting to Authentication.html.");
+                window.location.href = 'Authentication.html';
+            }
+        })();
+    </script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+
+</html>

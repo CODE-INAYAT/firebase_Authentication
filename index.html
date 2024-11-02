@@ -1,230 +1,304 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Previous Year Question Papers</title>
     <link rel="icon" href="favicon.png" type="image/x-icon" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="Authentication.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!---cdn css------->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style\index.css">
+    <script src="script\index.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCis188btD42eOizSVu2DLanPlWMgOkTVw",
+            authDomain: "accesstopyqs-a3387.firebaseapp.com",
+            databaseURL: "https://accesstopyqs-a3387-default-rtdb.firebaseio.com",
+            projectId: "accesstopyqs-a3387",
+            storageBucket: "accesstopyqs-a3387.appspot.com",
+            messagingSenderId: "256467888726",
+            appId: "1:256467888726:web:1c24cc1bedcffad9b3a9f7"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            console.log("DOM fully loaded and parsed.");
+
+            // Function to check registration status in Firebase Realtime Database (accessKeys node)
+            async function checkRegistration(accessKey) {
+                console.log("Checking registration status in Firebase...");
+                try {
+                    const dbRef = ref(db, `accessKeys/${accessKey}`);
+                    const snapshot = await get(dbRef);
+
+                    if (snapshot.exists()) {
+                        console.log(`Access key verified for user: ${snapshot.val()}`);
+                        return true; // Access key found
+                    } else {
+                        console.log('Access key not found in Firebase.');
+                        return false; // Access key not found
+                    }
+                } catch (error) {
+                    console.error('Error checking registration in Firebase:', error);
+                    return false;
+                }
+            }
+
+            // Get the current time
+            const currentTime = new Date().getTime();
+            console.log("Current time:", currentTime);
+
+            // Check if accessKey and last checked time exist in localStorage
+            const accessKey = localStorage.getItem('accessKey');
+            const lastCheckTime = localStorage.getItem('lastCheckTime');
+            console.log("Access Key:", accessKey);
+            console.log("Last Check Time:", lastCheckTime);
+
+            if (accessKey) {
+                console.log("Access Key found in local storage.");
+
+                const checkInterval = 86400000; // 24 hours in milliseconds
+
+                // If it's the first access (no lastCheckTime) or within 24 hours, skip external check
+                if (!lastCheckTime || (currentTime - lastCheckTime < checkInterval)) {
+                    console.log("First access or 24-hour interval not reached; showing content.");
+
+                    // Set lastCheckTime if it's the first access
+                    if (!lastCheckTime) {
+                        console.log("First access detected. Setting lastCheckTime.");
+                        localStorage.setItem('lastCheckTime', currentTime);
+                    }
+
+                    // Show the content immediately
+                    document.getElementById('initialLoading').style.display = 'none';
+                    document.getElementById('content').removeAttribute('style');
+                    document.getElementById('content').style.cssText = `background: linear-gradient(214deg, #6a2aaf, #2e2a9e, #2c9995, #0a1438, #08122c, #08122c, #6a2aaf, #2e2a9e, #08122c, #0a1438, #0a1438, #2c9995, #2e2a9e, #6a2aaf);
+                backdrop-filter: blur(30px);
+                -webkit-backdrop-filter: blur(30px);
+                font-family: 'Plus Jakarta Sans', sans-serif;
+                font-optical-sizing: auto;
+                font-style: normal;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                margin: 0;`;
+                } else {
+                    // If 24 hours have passed, perform Firebase accessKeys check
+                    console.log("24 hours have passed; verifying with Firebase.");
+                    const isRegistered = await checkRegistration(accessKey);
+                    if (isRegistered) {
+                        console.log("User is registered, showing content and updating lastCheckTime.");
+                        document.getElementById('initialLoading').style.display = 'none';
+                        document.getElementById('content').removeAttribute('style');
+                        document.getElementById('content').style.cssText = `background: linear-gradient(214deg, #6a2aaf, #2e2a9e, #2c9995, #0a1438, #08122c, #08122c, #6a2aaf, #2e2a9e, #08122c, #0a1438, #0a1438, #2c9995, #2e2a9e, #6a2aaf);
+                    backdrop-filter: blur(30px);
+                    -webkit-backdrop-filter: blur(30px);
+                    font-family: 'Plus Jakarta Sans', sans-serif;
+                    font-optical-sizing: auto;
+                    font-style: normal;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-attachment: fixed;
+                    margin: 0;`;
+
+                        // Update the last check time after successful check
+                        localStorage.setItem('lastCheckTime', currentTime);
+                    } else {
+                        console.log("User not registered, redirecting to Authentication.html.");
+                        window.location.href = 'Authentication.html';
+                    }
+                }
+            } else {
+                console.log("No access key found in local storage, redirecting to Authentication.html.");
+                window.location.href = 'Authentication.html';
+            }
+        });
+
+    </script>
+
 </head>
-<body>
-    <!-- Access Form Overlay -->
-    <div id="details-form"
-        style="font-family: 'Plus Jakarta Sans', sans-serif; background-color: #e9eef5; display: flex;"
-        class="form-overlay fixed inset-0 bg-opacity-100 overflow-y-auto h-full w-full flex items-center justify-center z-10 p-3">
-        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md sm:max-w-md mx-2 sm:mx-0"
-            style="border-radius: 25px;" id="formContent">
-            <h2 id="register-title" class="text-xl mb-4 text-center text-blue-900" style="font-weight: 460;">Register
-                Once, Access Anytime</h2>
-            <form name="google-sheet" method="post" id="accessForm" class="space-y-4">
-                <div class="relative z-0">
-                    <input type="text" id="name" name="Name" required oninput=" 
-                        convertToUpperCaseAndRemoveNumbers(this);"
-                        class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" " />
-                    <label for="name"
-                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 flex items-center">
-                        <svg class="w-5 h-5 mr-2 absolute left-0 top-1/2 transform -translate-y-1/2" fill="currentColor"
-                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="ml-7">Name</span>
-                    </label>
-                    <span id="nameError" class="hidden text-red-600 text-sm">Name should not exceed 45
-                        characters.</span>
-                </div>
 
-                <div class="relative z-0">
-                    <input type="email" id="email" name="Email" required
-                        oninput="convertToLowerCaseAndRemoveSpaces(this)" onclick="showInfoModal()"
-                        class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" " />
-                    <label for="email"
-                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 flex items-center">
-                        <svg class="w-5 h-5 mr-2 absolute left-0 top-1/2 transform -translate-y-1/2" fill="currentColor"
-                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                        </svg>
-                        <span class="ml-7">Email (Avoid Institute Mail)</span>
-                    </label>
-                    <span id="emailError" class="hidden text-red-600 text-sm">Email should not exceed 55
-                        characters.</span>
-                </div>
-
-                <div class="relative z-0">
-                    <label for="Branch" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Your
-                        Branch</label>
-                    <select id="countries" name="Branch"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option disabled selected>Your Branch</option>
-                        <option value="COMPS">COMPS</option>
-                        <option value="AI&DS">AI&DS</option>
-                        <option value="E&TC">E&TC</option>
-                        <option value="IT">IT</option>
-                        <option value="MECH">MECH</option>
-                        <option value="CIVIL">CIVIL</option>
-                        <option value="E&CS">E&CS</option>
-                        <option value="MME">MME</option>
-                        <option value="CSE">CSE</option>
-                        <option value="AI&ML">AI&ML</option>
-                        <option value="IoT">IoT</option>
-                    </select>
-                </div>
-                <div class="relative z-0">
-                    <label for="Branch" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Your
-                        Year</label>
-                    <select id="countries" name="Year" style="font-family: 'JetBrains Mono';"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option disabled selected>Your Year</option>
-                        <option selected value="I">I</option>
-                    </select>
-                </div>
-                <div class="flex justify-center">
-                    <button type="submit" id="submitButton" name="submit"
-                        style="box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center w-full sm:w-auto">
-                        <span id="buttonText">Get AccessKey</span>
-                        <svg id="buttonArrow" class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3">
-                            </path>
-                        </svg>
-                </div>
-                </button>
-            </form>
+<body id="content" style="
+background-size: 100% 100%;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: fixed;
+min-height: 100vh;">
+    <!--------Alert on load------------->
+    <div id="alert-border-3"
+        class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
+        role="alert">
+        <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+            viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <div class="ml-3 flex-grow">
+            <span class="text-sm font-medium">2023-24 ESE Papers Are Added !<br>Running on version 8.0</span>
         </div>
-        <footer class="shadow m-4 bg-gray-800 fixed bottom-0 left-0 right-0"
-            style="margin-bottom: 0px; margin-right: 0px; margin-left: 0px; margin-top: 0px; border-top-left-radius:20px; border-top-right-radius:20px;">
-            <div class="w-full mx-auto max-w-screen-xl p-1 md:flex md:items-center md:justify-center">
-                <span class="footer-text text-xs text-gray-200 sm:text-center"
-                    style="font-family: 'JetBrains Mono'; font-size: 13.50px; padding-top: 4px;">Made With<svg
-                        class="mx-1 inline-block" style="height: 15px; width: 15px; margin-top: -3px;"
-                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path
-                                d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
-                                fill="#e24040"></path>
-                        </g>
-                    </svg>By ISK<br>
-                    <span class="footer-text text-md text-gray-400 md:text-center"
-                        style="padding-top: 6px;">AccessGateway|version:
-                        4.0
-                    </span>
-                </span>
-            </div>
-        </footer>
-    </div>
-    <!---Access Key Verification--->
-    <div id="access-form"
-        style="font-family: 'Plus Jakarta Sans', sans-serif; background-color: #e9eef5; display: none;"
-        class="form-overlay fixed inset-0 bg-opacity-100 overflow-y-auto h-full w-full flex items-center justify-center z-10 p-3">
-        <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md sm:max-w-md mx-2 sm:mx-0"
-            style="border-radius: 25px; padding-top: 5px;" id="accessKeyformContent">
-            <div class="check-container relative flex items-center justify-center" id="error">
-                <!-- <img src="check.svg" width="55px" height="55px" alt="orange error icon"
-                    style="position: absolute; top: -50%; transform: translateY(-100%);" /> -->
-                <dotlottie-player src="https://lottie.host/79c4fce4-a366-43fb-b832-15a7ef0dd3fb/1s1ZMDZ5Ed.json"
-                    background="transparent" speed="1" style="width: 160px; height: 160px;" loop
-                    autoplay></dotlottie-player>
-            </div>
-            <h3 class="text-2xl mb-2 text-center">Congratulations!</h3>
-            <p class="mb-5 text-center">
-                <span
-                    class="text-green-800 font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 ms-3">Your
-                    Access Key Is Now Ready To Use...
-                </span>
-            </p>
-            <form name="google-sheet" method="post" id="accessForm" class="space-y-4">
-                <div class="relative z-0">
-                    <input type="text" id="accessKey" name="accessKey" required oninput="removeSpaces(this)"
-                        class="block py-2.5 px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                        placeholder=" " disabled />
-                    <label for="accessKey"
-                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto flex items-center">
-                        <svg class="w-5 h-5 mr-2 absolute left-0 top-1/2 transform -translate-y-1/2" fill="currentColor"
-                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="ml-7">Access Key</span>
-                    </label>
-                </div>
-                <div class="flex justify-center">
-                    <button type="submit" id="submitButton" name="submit"
-                        style="box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center w-full sm:w-auto">
-                        <span id="buttonText">Continue</span>
-                        <svg id="buttonArrow" class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                        <div id="loadingSpinner" class="hidden ml-2">
-                            <svg aria-hidden="true"
-                                class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                    fill="currentColor" />
-                                <path
-                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                    fill="currentFill" />
-                            </svg>
-                        </div>
-                    </button>
-                </div>
-            </form>
-        </div>
-        <footer class="shadow m-4 bg-gray-800 fixed bottom-0 left-0 right-0"
-            style="margin-bottom: 0px; margin-right: 0px; margin-left: 0px; margin-top: 0px; border-top-left-radius:20px; border-top-right-radius:20px;">
-            <div class="w-full mx-auto max-w-screen-xl p-1 md:flex md:items-center md:justify-center">
-                <span class="footer-text text-xs text-gray-200 sm:text-center"
-                    style="font-family: 'JetBrains Mono'; font-size: 13.50px; padding-top: 4px;">Made With<svg
-                        class="mx-1 inline-block" style="height: 15px; width: 15px; margin-top: -3px;"
-                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path
-                                d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
-                                fill="#e24040"></path>
-                        </g>
-                    </svg>By ISK<br>
-                    <span class="footer-text text-md text-gray-400 md:text-center"
-                        style="padding-top: 6px;">AccessGateway|version:
-                        4.0
-                    </span>
-                </span>
-            </div>
-        </footer>
+        <button type="button"
+            class="ml-auto bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
+            data-dismiss-target="#alert-border-3" aria-label="Close">
+            <span class="sr-only">Dismiss</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+        </button>
     </div>
 
 
-    <!------------------------ initialLoading overlay ------------------------------>
+    <div class="min-h-screen flex flex-col justify-center items-center">
+        <h1 class="text-3xl font-bold mb-8 text-center" style="
+        margin-top: 20px;
+        margin-bottom: 25px; color: #fff;">Select The Group</h1>
+        <div class=" grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-4xl">
+
+            <!-------------------CARD 1------------------->
+            <div id="card1" style="
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-top: 10px; color: #fff;"
+                class="card block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <a href="#">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white-900 dark:text-white">GROUP I</h5>
+                </a>
+                <p class="mb-3 font-normal text-white-700">[GROUP I] is Consist of : <br> ●
+                    Physics <br> ● Mathematics <br> ● Basic Electrical Engineering <br>● Engineering Graphics &
+                    Design
+                    <br>● English For General & Professional Communication.
+                </p>
+
+                <!--------------Note------------------>
+                <div class="flex p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                    role="alert" style="border-radius: 18px;">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">NOTE :</span>
+                        <ul class="mt-1.5 list-disc list-inside">
+                            <li>PYQ'S Are Classified As ODD & EVEN SEM</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="group1.html" style="border-radius: 18px;"
+                    class="inline-flex items-center px-3 py-2 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                    Continue
+                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-------------------CARD 2-------------------------->
+            <div id="card2" style="
+            margin-right: 10px;
+            margin-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 25px; color: #fff;"
+                class="card block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <a href="#">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white-900 dark:text-white">GROUP II</h5>
+                </a>
+                <p class="mb-3 font-normal text-white-700">[GROUP II] is Consist of : <br> ●
+                    Chemistry <br> ● Programming for Problem Solving <br>● Mathematics <br>● Engineering Mechanics <br>●
+                    Introduction To Indian Knowledge System.</p>
+
+                <!--------------NOTE-------------->
+                <div class="flex p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                    role="alert" style="border-radius: 18px;">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">NOTE :</span>
+                        <ul class="mt-1.5 list-disc list-inside">
+                            <li>PYQ'S Are Classified As ODD & EVEN SEM</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="group2.html" style="border-radius: 18px;"
+                    class="inline-flex items-center px-3 py-2 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                    Continue
+                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5h12m0 0L9 1m4 4L9 9" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer" class="bg-white dark:bg-gray-900 text-center">
+        <div class="mx-auto w-full max-w-screen-xl">
+            <div class="py-4">
+                <div>
+                    <h2 class="mb-2 text-sm font-semibold text-gray-900 uppercase dark:text-white">Reported An Bug ?
+                    </h2>
+                    <span class="text-md text-gray-400 md:text-center">Share A Detailed Information Of An Issue <a
+                            href="mailto:shaikh_inayat@outlook.com?subject=BUG%20REPORT%20%2F%20SUGGESTIONS"
+                            class="text-blue-500 hover:underline">Click here <svg
+                                class="w-6 h-6 inline-block text-blue-800" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path fill-rule="evenodd"
+                                    d="M3 5.983C3 4.888 3.895 4 5 4h14c1.105 0 2 .888 2 1.983v8.923a1.992 1.992 0 0 1-2 1.983h-6.6l-2.867 2.7c-.955.899-2.533.228-2.533-1.08v-1.62H5c-1.105 0-2-.888-2-1.983V5.983Zm5.706 3.809a1 1 0 1 0-1.412 1.417 1 1 0 1 0 1.412-1.417Zm2.585.002a1 1 0 1 1 .003 1.414 1 1 0 0 1-.003-1.414Zm5.415-.002a1 1 0 1 0-1.412 1.417 1 1 0 1 0 1.412-1.417Z"
+                                    clip-rule="evenodd" />
+                            </svg> </a></span>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="py-3 dark:bg-gray-600">
+            <span class="text-sm text-gray-200 sm:text-center" style="font-family: 'JetBrains Mono';">
+                Made With<svg class="mx-1 inline-block" style="height: 18px; width: 18px;" viewBox="0 0 24 24"
+                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
+                            fill="#e24040"></path>
+                    </g>
+                </svg>By ISK
+            </span><br>
+            <span class="text-sm text-gray-400 sm:text-center" style="font-family: 'JetBrains Mono';">Initial Release:
+                15 APR 2024</span>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <div id="initialLoading" class="initial-overlay" style="display: flex;">
         <div class="overlay-content">
-            <div class="relative">
+            <div class="relative bg-white rounded-lg shadow" style="border-radius: 30px;">
                 <div class="p-4 md:p-5 text-center">
                     <div class="loading-center">
                         <div role="status">
-                            <!-- <svg aria-hidden="true"
-                                class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                            <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin fill-blue-600"
                                 viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
@@ -232,12 +306,8 @@
                                 <path
                                     d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
                                     fill="currentFill" />
-                            </svg> -->
-                            <dotlottie-player id="uniqueLottiePlayer"
-                                src="https://lottie.host/264fbdb6-26e3-4189-b390-85c5f7eb09e0/kOSERP7QNV.json"
-                                background="transparent" speed="2.5" style="width: 250px; height: 250px;" loop autoplay>
-                            </dotlottie-player>
-                            <h4 class="text-gray-700" style="margin-top: 15px;">Please Wait...</h4>
+                            </svg>
+                            <h4 class="text-gray-600" style="margin-top: 15px;">Please Wait...</h4>
                             <span class="sr-only">Loading...</span>
                         </div>
                     </div>
@@ -245,191 +315,6 @@
             </div>
         </div>
     </div>
-    <!------------------------ Loading overlay(AccessKey Generation) ------------------------------>
-    <div id="loading" class="overlay" style="display: none;">
-        <div class="overlay-content">
-            <!-- <div class="relative bg-white rounded-lg shadow dark:bg-gray-700" style="border-radius: 30px;"> -->
-            <div class="relative">
-                <div class="p-4 md:p-5 text-center">
-                    <div class="loading-center">
-                        <div role="status">
-                            <!-- <svg aria-hidden="true"
-                                class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                    fill="currentColor" />
-                                <path
-                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                    fill="currentFill" />
-                            </svg> -->
-                            <dotlottie-player
-                                src="https://lottie.host/92a3f5cb-aaa9-489c-9f7d-aee5873a6b23/DxqdVEFpGG.json"
-                                background="transparent" speed="1.5" style="width: 200px; height: 200px" loop
-                                autoplay></dotlottie-player>
-                            <h4 class="text-gray-700" style="margin-top: 15px;">Getting Access Key For You...</h4>
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-------------------- Success overlay ------------------------------->
-    <div id="success" style="font-family: 'Plus Jakarta Sans', sans-serif;"
-        class="fixed z-10 inset-0 overflow-y-auto hidden flex items-center justify-center p-4"
-        aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="w-full max-w-sm sm:max-w-md mx-2 sm:mx-0">
-            <div style="background: rgba(0, 0, 0, 0.441); backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);" class="fixed inset-0 transition-opacity" aria-hidden="true"></div>
-            <div style="border-radius: 35px;"
-                class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all w-full">
-                <!-- Modal header with close button -->
-                <div class="flex items-center justify-between p-1 md:p-5 border-b rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-900 w-full text-center">
-                        <div class="dotlottie-container">
-                            <dotlottie-player
-                                src="https://lottie.host/b262bbf7-05a6-4a30-b6e3-648b52389ffe/o5joDCtkZz.json"
-                                background="transparent" speed="1" style="width: 80px; height: 80px;" loop
-                                autoplay></dotlottie-player>
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </div>AccessKey verified!
-                    </h3>
-                </div>
-                <!-- Modal body -->
-                <div class="p-3 md:p-5 space-y-4 text-center">
-                    <p class="text-base leading-relaxed ">
-                        Dear <span class="bg-blue-100 text-blue-800 font-medium me-2 px-1.5 py-0.5 rounded"><span
-                                id="userName"></span>,You
-                            have successfully registered</span>. Click on OK button to
-                        redirect on PYQs website.<br>Have a great Learning...
-                    </p>
-                    <div
-                        class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                        <a href="https://pyqs-isk.pages.dev"
-                            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-flex items-center">
-                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M7.5 7.375C7.5 6.33947 8.33947 5.5 9.375 5.5C10.4105 5.5 11.25 6.33947 11.25 7.375V16.625C11.25 18.489 12.761 20 14.625 20C16.489 20 18 18.489 18 16.625V11.8107L19.2197 13.0303L20.2803 11.9697L17.25 8.93934L14.2197 11.9697L15.2803 13.0303L16.5 11.8107V16.625C16.5 17.6605 15.6605 18.5 14.625 18.5C13.5895 18.5 12.75 17.6605 12.75 16.625V7.375C12.75 5.51104 11.239 4 9.375 4C7.51104 4 6 5.51104 6 7.375V9.5H4V15H9.5V9.5H7.5V7.375ZM5.5 11V13.5H8V11H5.5Z">
-                                </path>
-                            </svg>
-                            <span class="plus-jakarta-sans">OK</span>
-                        </a>
-                    </div>
-                    <p class="text-gray-700"
-                        style="font-size: 12px; font-style: italic; margin-bottom: -3px; margin-top: -2px;">Redirecting
-                        Automatically In 10 Seconds...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-------------------- alreadyRegistered overlay ------------------------------->
-    <div id="alreadyRegistered" style="font-family: 'Plus Jakarta Sans', sans-serif;"
-        class="fixed z-10 inset-0 overflow-y-auto hidden flex items-center justify-center p-4"
-        aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="w-full max-w-sm sm:max-w-md mx-2 sm:mx-0">
-            <div style="background: #e9eef5; backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);" class="fixed inset-0 transition-opacity" aria-hidden="true"></div>
-            <div style="border-radius: 35px;"
-                class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all w-full">
-                <!-- Modal header with close button -->
-                <div class="flex items-center justify-between p-1 md:p-5 border-b rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-900 w-full text-center">
-                        <div class="dotlottie-container">
-                            <dotlottie-player
-                                src="https://lottie.host/b262bbf7-05a6-4a30-b6e3-648b52389ffe/o5joDCtkZz.json"
-                                background="transparent" speed="1" style="width: 80px; height: 80px;" loop
-                                autoplay></dotlottie-player>
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </div>AccessKey verified!
-                    </h3>
-                </div>
-                <!-- Modal body -->
-                <div class="p-3 md:p-5 space-y-4 text-center">
-                    <p class="text-base leading-relaxed ">
-                        You Have <span class="bg-blue-100 text-blue-800 font-medium me-2 px-1.5 py-0.5 rounded">Already
-                            Successfully Registered.</span> Click on OK button to
-                        redirect on PYQs website.<br>Have a great Learning...
-                    </p>
-                    <div
-                        class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                        <a href="https://pyqs-isk.pages.dev"
-                            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-flex items-center">
-                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M7.5 7.375C7.5 6.33947 8.33947 5.5 9.375 5.5C10.4105 5.5 11.25 6.33947 11.25 7.375V16.625C11.25 18.489 12.761 20 14.625 20C16.489 20 18 18.489 18 16.625V11.8107L19.2197 13.0303L20.2803 11.9697L17.25 8.93934L14.2197 11.9697L15.2803 13.0303L16.5 11.8107V16.625C16.5 17.6605 15.6605 18.5 14.625 18.5C13.5895 18.5 12.75 17.6605 12.75 16.625V7.375C12.75 5.51104 11.239 4 9.375 4C7.51104 4 6 5.51104 6 7.375V9.5H4V15H9.5V9.5H7.5V7.375ZM5.5 11V13.5H8V11H5.5Z">
-                                </path>
-                            </svg>
-                            <span class="plus-jakarta-sans">OK</span>
-                        </a>
-                    </div>
-                    <p class="text-gray-700"
-                        style="font-size: 12px; font-style: italic; margin-bottom: -3px; margin-top: -2px;">Redirecting
-                        Automatically In 10 Seconds...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-------info Modal-------->
-    <div id="infoModal" style="font-family: 'Plus Jakarta Sans', sans-serif;"
-        class="fixed z-10 inset-0 overflow-y-auto hidden flex items-center justify-center p-4"
-        aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="w-full max-w-sm sm:max-w-md mx-2 sm:mx-0">
-            <div style="background: rgba(0, 0, 0, 0.441); backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);" class="fixed inset-0 transition-opacity" aria-hidden="true"></div>
-            <div style="border-radius: 35px;" id="infoModalContent"
-                class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all w-full">
-                <!-- Modal header with close button -->
-                <div class="flex items-center justify-between p-3 md:p-4 border-b rounded-t">
-                    <h3 class="text-xl font-semibold text-gray-900 w-full text-center">
-                        <div class="dotlottie-container">
-                            <svg style="width: 70px; height: 70px;" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M21.5609 10.7381L20.2109 9.15812C19.9609 8.85812 19.7509 8.29813 19.7509 7.89813V6.19812C19.7509 5.13812 18.8809 4.26812 17.8209 4.26812H16.1209C15.7209 4.26812 15.1509 4.05813 14.8509 3.80812L13.2709 2.45812C12.5809 1.86813 11.4509 1.86813 10.7609 2.45812L9.16086 3.80812C8.86086 4.05813 8.30086 4.26812 7.90086 4.26812H6.17086C5.11086 4.26812 4.24086 5.13812 4.24086 6.19812V7.89813C4.24086 8.28813 4.04086 8.84812 3.79086 9.14812L2.44086 10.7381C1.86086 11.4381 1.86086 12.5581 2.44086 13.2381L3.79086 14.8281C4.04086 15.1181 4.24086 15.6881 4.24086 16.0781V17.7881C4.24086 18.8481 5.11086 19.7181 6.17086 19.7181H7.91086C8.30086 19.7181 8.87086 19.9281 9.17086 20.1781L10.7509 21.5281C11.4409 22.1181 12.5709 22.1181 13.2609 21.5281L14.8409 20.1781C15.1409 19.9281 15.7009 19.7181 16.1009 19.7181H17.8009C18.8609 19.7181 19.7309 18.8481 19.7309 17.7881V16.0881C19.7309 15.6881 19.9409 15.1281 20.1909 14.8281L21.5409 13.2481C22.1509 12.5681 22.1509 11.4381 21.5609 10.7381ZM11.2509 8.12813C11.2509 7.71813 11.5909 7.37813 12.0009 7.37813C12.4109 7.37813 12.7509 7.71813 12.7509 8.12813V12.9581C12.7509 13.3681 12.4109 13.7081 12.0009 13.7081C11.5909 13.7081 11.2509 13.3681 11.2509 12.9581V8.12813ZM12.0009 16.8681C11.4509 16.8681 11.0009 16.4181 11.0009 15.8681C11.0009 15.3181 11.4409 14.8681 12.0009 14.8681C12.5509 14.8681 13.0009 15.3181 13.0009 15.8681C13.0009 16.4181 12.5609 16.8681 12.0009 16.8681Z"
-                                        fill="#ffcc00"></path>
-                                </g>
-                            </svg>
-                        </div>
-                        Info !
-                    </h3>
-                </div>
-                <!-- Modal body -->
-                <div class="p-2 md:p-5 space-y-4 text-center">
-                    <p class="text-base leading-relaxed text-gray-700">
-                        Please provide a <span
-                            class="bg-blue-100 text-blue-800 font-medium me-2 px-1.5 py-0.5 rounded">valid and active
-                            email;</span> it will be used as a <span
-                            class="bg-blue-100 text-blue-800 font-medium me-2 px-1.5 py-0.5 rounded">backup for
-                            providing access
-                            to PYQs.</span>
-                    </p>
-                    <div
-                        class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4">
-                        <button id="iUnderstandBtn"
-                            class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 inline-flex items-center">
-                            <span class="plus-jakarta-sans">Got it</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="inputs.js"></script>
-    <script src="firebase.js" type="module"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </body>
 
 </html>
